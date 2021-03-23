@@ -1,10 +1,10 @@
 import {
   Timer
-} from './Timer.js'
+} from './Timer.js';
 
 export class ExerciseSet {
-  constructor() {
-
+  constructor(reps) {
+    this.reps = reps;
   }
   addTimer() {
 
