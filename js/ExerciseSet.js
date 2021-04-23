@@ -8,19 +8,23 @@ class ExerciseSet {
         this.draw();
     }
     addTimer() {
-        this.timers.push(new Timer("Insert name", this, "1:00", "0:05"));
+        this.timers.push(new Timer(this, "1:00", "0:05"));
     }
     draw() {
         this.bodyHTML = `<div class="set" id="${this.id}">
         <div class="container">
-            <button class="add-timer-${this.id}">Add Timer</button>
+            <button id="add-timer-${this.id}">Add Timer</button>
         </div>
         </div>`
-        this.body = document.getElementById(this.id);
-        document.getElementById("sets").innerHTML += this.body;
+        let temp = document.createElement("div");
+        temp.innerHTML = this.bodyHTML;
+
+        document.getElementById("sets").appendChild(temp.firstElementChild);
         document.getElementById(`add-timer-${this.id}`).addEventListener('click', (event) => {
             this.addTimer();
-        })
+            console.log("timer added");
+        });
+        this.body = document.getElementById(this.id);
 
     }
     triggerNext() {
@@ -34,12 +38,12 @@ class ExerciseSet {
 
 
 class Timer {
-    constructor(set, duration, delay) {
+    constructor(name, set, duration, delay) {
         this.name = name;
         this.set = set; // parent set object
         this.duration = duration;
         this.delay = delay;
-        this.id = "timer-" + Date.now();
+        this.id = "timer-" + this.name + (new Date()).UTC();
         this.pauseDuration = duration;
         this.draw();
     }
